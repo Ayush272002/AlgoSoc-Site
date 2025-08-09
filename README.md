@@ -99,9 +99,6 @@ algosoc/
 │   ├── links.ts            # External links configuration
 │   ├── StaggerContainer.ts # Animation variants
 │   └── FadeInUp.ts         # Animation variants
-├── public/                 # Static assets
-│   ├── logo.png            # AlgoSoc logo
-│   └── favicons/           # Favicon files
 └── README.md               # You are here!
 ```
 
