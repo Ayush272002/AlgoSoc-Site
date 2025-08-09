@@ -83,26 +83,26 @@ pnpm start
 ```
 algosoc/
 ├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout with metadata
-│   ├── page.tsx           # Homepage
-│   └── globals.css        # Global styles and CSS variables
-├── components/            # React components
-│   ├── ui/                # UI components (buttons, cards, etc.)
-│   ├── Header.tsx         # Navigation header
-│   ├── Hero.tsx           # Hero section
-│   ├── Feature.tsx        # Features showcase
-│   ├── Events.tsx         # Events section
-│   ├── Footer.tsx         # Footer with social links
+│   ├── layout.tsx          # Root layout with metadata
+│   ├── page.tsx            # Homepage
+│   └── globals.css         # Global styles and CSS variables
+├── components/             # React components
+│   ├── ui/                 # UI components (buttons, cards, etc.)
+│   ├── Header.tsx          # Navigation header
+│   ├── Hero.tsx            # Hero section
+│   ├── Feature.tsx         # Features showcase
+│   ├── Events.tsx          # Events section
+│   ├── Footer.tsx          # Footer with social links
 │   └── NeuralNetworkBackground.tsx
-├── utils/                 # Utility functions and data
-│   ├── events.json        # Events data
-│   ├── links.ts           # External links configuration
+├── utils/                  # Utility functions and data
+│   ├── events.json         # Events data
+│   ├── links.ts            # External links configuration
 │   ├── StaggerContainer.ts # Animation variants
-│   └── FadeInUp.ts        # Animation variants
-├── public/                # Static assets
-│   ├── logo.png           # AlgoSoc logo
-│   └── favicons/          # Favicon files
-└── README.md              # You are here!
+│   └── FadeInUp.ts         # Animation variants
+├── public/                 # Static assets
+│   ├── logo.png            # AlgoSoc logo
+│   └── favicons/           # Favicon files
+└── README.md               # You are here!
 ```
 
 ## 🎨 Customization
