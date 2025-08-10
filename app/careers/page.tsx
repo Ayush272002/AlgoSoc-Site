@@ -1,9 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { Search } from "lucide-react";
 import { NeuralNetworkBackground } from "@/components/NeuralNetworkBackground";
 import Header from "@/components/Header";
@@ -14,6 +23,12 @@ import { fetchCSV } from "@/utils/fetchCSV";
 export default function CareersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("internships");
+  const [currentPage, setCurrentPage] = useState({
+    internships: 1,
+    gradSchemes: 1,
+    industrialPlacements: 1,
+    insights: 1,
+  });
   const [data, setData] = useState({
     internships: [] as Opportunity[],
     gradSchemes: [] as Opportunity[],
@@ -21,6 +36,8 @@ export default function CareersPage() {
     insights: [] as Opportunity[],
   });
   const [loading, setLoading] = useState(true);
+
+  const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
     async function loadData() {
@@ -66,6 +83,112 @@ export default function CareersPage() {
     );
   };
 
+  const getPaginatedData = (
+    opportunities: Opportunity[],
+    tabName: keyof typeof currentPage
+  ) => {
+    const filtered = filterOpportunities(opportunities);
+    const startIndex = (currentPage[tabName] - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return {
+      data: filtered.slice(startIndex, endIndex),
+      totalItems: filtered.length,
+      totalPages: Math.ceil(filtered.length / ITEMS_PER_PAGE),
+    };
+  };
+
+  const handlePageChange = (
+    tabName: keyof typeof currentPage,
+    page: number
+  ) => {
+    setCurrentPage((prev) => ({
+      ...prev,
+      [tabName]: page,
+    }));
+  };
+
+  useEffect(() => {
+    setCurrentPage({
+      internships: 1,
+      gradSchemes: 1,
+      industrialPlacements: 1,
+      insights: 1,
+    });
+  }, [searchTerm]);
+
+  const renderPagination = (
+    tabName: keyof typeof currentPage,
+    totalPages: number
+  ) => {
+    if (totalPages <= 1) return null;
+
+    const currentTabPage = currentPage[tabName];
+
+    return (
+      <div className="mt-6 flex justify-center">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() =>
+                  handlePageChange(tabName, Math.max(1, currentTabPage - 1))
+                }
+                className={
+                  currentTabPage === 1
+                    ? "pointer-events-none opacity-50 text-gray-500 border-gray-700"
+                    : "cursor-pointer hover:bg-algo-yellow/10 text-white border-gray-600 hover:border-algo-yellow/50"
+                }
+              />
+            </PaginationItem>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1)
+              .filter((pageNum) => {
+                return (
+                  pageNum === 1 ||
+                  pageNum === totalPages ||
+                  Math.abs(pageNum - currentTabPage) <= 1
+                );
+              })
+              .map((pageNum, index, array) => (
+                <React.Fragment key={pageNum}>
+                  {index > 0 && array[index - 1] < pageNum - 1 && (
+                    <PaginationItem>
+                      <PaginationEllipsis className="text-gray-400" />
+                    </PaginationItem>
+                  )}
+                  <PaginationItem>
+                    <PaginationLink
+                      onClick={() => handlePageChange(tabName, pageNum)}
+                      isActive={currentTabPage === pageNum}
+                      className="cursor-pointer hover:bg-algo-yellow/10 text-white border-gray-600 hover:border-algo-yellow/50 data-[state=active]:bg-algo-yellow data-[state=active]:text-black data-[state=active]:border-algo-yellow"
+                    >
+                      {pageNum}
+                    </PaginationLink>
+                  </PaginationItem>
+                </React.Fragment>
+              ))}
+
+            <PaginationItem>
+              <PaginationNext
+                onClick={() =>
+                  handlePageChange(
+                    tabName,
+                    Math.min(totalPages, currentTabPage + 1)
+                  )
+                }
+                className={
+                  currentTabPage === totalPages
+                    ? "pointer-events-none opacity-50 text-gray-500 border-gray-700"
+                    : "cursor-pointer hover:bg-algo-yellow/10 text-white border-gray-600 hover:border-algo-yellow/50"
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Neural Network Background */}
@@ -86,7 +209,6 @@ export default function CareersPage() {
               industry insights curated by AlgoSoc
             </p>
           </div>
-
 
           {loading && (
             <div className="text-center py-12">
@@ -164,18 +286,24 @@ export default function CareersPage() {
                         </div>
                       </div>
                       <CardContent className="p-0">
-                        {filterOpportunities(data.internships).map(
-                          (opportunity) => (
-                            <OpportunityRow
-                              key={opportunity.id}
-                              opportunity={opportunity}
-                            />
-                          )
-                        )}
+                        {getPaginatedData(
+                          data.internships,
+                          "internships"
+                        ).data.map((opportunity) => (
+                          <OpportunityRow
+                            key={opportunity.id}
+                            opportunity={opportunity}
+                          />
+                        ))}
                         {filterOpportunities(data.internships).length === 0 && (
                           <div className="text-center py-8 text-gray-400">
                             No internships found matching your search.
                           </div>
+                        )}
+                        {renderPagination(
+                          "internships",
+                          getPaginatedData(data.internships, "internships")
+                            .totalPages
                         )}
                       </CardContent>
                     </Card>
@@ -201,18 +329,24 @@ export default function CareersPage() {
                         </div>
                       </div>
                       <CardContent className="p-0">
-                        {filterOpportunities(data.gradSchemes).map(
-                          (opportunity) => (
-                            <OpportunityRow
-                              key={opportunity.id}
-                              opportunity={opportunity}
-                            />
-                          )
-                        )}
+                        {getPaginatedData(
+                          data.gradSchemes,
+                          "gradSchemes"
+                        ).data.map((opportunity) => (
+                          <OpportunityRow
+                            key={opportunity.id}
+                            opportunity={opportunity}
+                          />
+                        ))}
                         {filterOpportunities(data.gradSchemes).length === 0 && (
                           <div className="text-center py-8 text-gray-400">
                             No graduate schemes found matching your search.
                           </div>
+                        )}
+                        {renderPagination(
+                          "gradSchemes",
+                          getPaginatedData(data.gradSchemes, "gradSchemes")
+                            .totalPages
                         )}
                       </CardContent>
                     </Card>
@@ -238,19 +372,27 @@ export default function CareersPage() {
                         </div>
                       </div>
                       <CardContent className="p-0">
-                        {filterOpportunities(data.industrialPlacements).map(
-                          (opportunity) => (
-                            <OpportunityRow
-                              key={opportunity.id}
-                              opportunity={opportunity}
-                            />
-                          )
-                        )}
+                        {getPaginatedData(
+                          data.industrialPlacements,
+                          "industrialPlacements"
+                        ).data.map((opportunity) => (
+                          <OpportunityRow
+                            key={opportunity.id}
+                            opportunity={opportunity}
+                          />
+                        ))}
                         {filterOpportunities(data.industrialPlacements)
                           .length === 0 && (
                           <div className="text-center py-8 text-gray-400">
                             No industrial placements found matching your search.
                           </div>
+                        )}
+                        {renderPagination(
+                          "industrialPlacements",
+                          getPaginatedData(
+                            data.industrialPlacements,
+                            "industrialPlacements"
+                          ).totalPages
                         )}
                       </CardContent>
                     </Card>
@@ -276,7 +418,7 @@ export default function CareersPage() {
                         </div>
                       </div>
                       <CardContent className="p-0">
-                        {filterOpportunities(data.insights).map(
+                        {getPaginatedData(data.insights, "insights").data.map(
                           (opportunity) => (
                             <OpportunityRow
                               key={opportunity.id}
@@ -288,6 +430,10 @@ export default function CareersPage() {
                           <div className="text-center py-8 text-gray-400">
                             No insights found matching your search.
                           </div>
+                        )}
+                        {renderPagination(
+                          "insights",
+                          getPaginatedData(data.insights, "insights").totalPages
                         )}
                       </CardContent>
                     </Card>
