@@ -2,7 +2,8 @@ import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "./ui/button";
-import { Cpu, Users } from "lucide-react";
+import Link from "next/link";
+import { Cpu, Users, Briefcase } from "lucide-react";
 import { DISCORD_LINK } from "@/utils/links";
 
 const Hero = () => {
@@ -72,6 +73,26 @@ const Hero = () => {
             >
               <Users className="w-6 h-6 mr-3" />
               Join the Community
+            </Button>
+          </motion.div>
+
+          <motion.div
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 20px 40px rgba(255, 206, 109, 0.2)",
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-[var(--algo-yellow)]/30 text-[var(--algo-yellow)] hover:bg-[var(--algo-yellow)] hover:border-[var(--algo-yellow)] hover:text-black font-semibold px-8 py-4 rounded-xl text-lg shadow-xl backdrop-blur-sm transition-all duration-200"
+            >
+              <Link href="/careers">
+                <Briefcase className="w-6 h-6 mr-3" />
+                Explore Careers
+              </Link>
             </Button>
           </motion.div>
         </motion.div>

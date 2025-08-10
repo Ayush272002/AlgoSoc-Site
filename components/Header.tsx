@@ -1,16 +1,21 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { JOIN_ALGO_SOC_LINK } from "@/utils/links";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
 
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="border-b border-[var(--algo-yellow)]/20 bg-black/80 backdrop-blur-xl sticky top-0 z-50"
+      className="border-b border-[var(--algo-yellow)]/20 bg-black/80 backdrop-blur-xl sticky top-0 z-50 cursor-pointer"
+      onClick={() => router.push("/")}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <motion.div
