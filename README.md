@@ -45,7 +45,7 @@ AlgoSoc (Algorithmic and Programming Society) is a society that brings together 
 ### Prerequisites
 
 - Node.js 18+
-- pnpm 
+- pnpm
 
 ### Installation
 
