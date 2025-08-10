@@ -23,7 +23,7 @@ const Header = () => {
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-[var(--algo-yellow)] to-[var(--algo-yellow)] rounded-xl flex items-center justify-center shadow-lg shadow-[var(--algo-yellow)]/25">
+          <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center shadow-lg shadow-gray-500/25">
             <img src="/logo.png" alt="AlgoSoc Logo" className="w-6 h-6" />
           </div>
           <span className="text-2xl font-bold bg-gradient-to-r from-white to-[var(--algo-yellow)] bg-clip-text text-transparent">

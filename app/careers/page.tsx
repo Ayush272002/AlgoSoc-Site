@@ -51,12 +51,8 @@ export default function CareersPage() {
           ]);
 
         const addIds = (arr: Opportunity[]) => {
-          const sorted = arr.sort((a, b) => {
-            const dateA = new Date(a.openingDate || "");
-            const dateB = new Date(b.openingDate || "");
-            return dateB.getTime() - dateA.getTime(); // Descending order
-          });
-          return sorted.map((item, index) => ({ ...item, id: index + 1 }));
+          const reversed = [...arr].reverse();
+          return reversed.map((item, index) => ({ ...item, id: index + 1 }));
         };
 
         setData({

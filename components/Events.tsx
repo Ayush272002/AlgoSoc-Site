@@ -5,8 +5,25 @@ import { Badge } from "lucide-react";
 import { staggerContainer } from "@/utils/StaggerContainer";
 import { fadeInUp } from "@/utils/FadeInUp";
 import eventsData from "@/utils/events.json";
+import { Event } from "@/interface/Event";
 
 const Events = () => {
+  const validEvents = eventsData.filter(
+    (event: any): event is Event =>
+      event &&
+      typeof event === "object" &&
+      Object.keys(event).length > 0 &&
+      event.title &&
+      event.description &&
+      event.date &&
+      event.type &&
+      event.color
+  );
+
+  if (validEvents.length === 0) {
+    return null;
+  }
+
   return (
     <section id="events" className="py-32 px-4 bg-gray-900/30 relative">
       <div className="container mx-auto relative z-20">
@@ -33,7 +50,7 @@ const Events = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {eventsData.map((event) => (
+          {validEvents.map((event) => (
             <motion.div
               key={event.title}
               variants={fadeInUp}

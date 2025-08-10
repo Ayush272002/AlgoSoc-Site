@@ -1,6 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { GitHubLogoIcon, InstagramLogoIcon, EnvelopeClosedIcon } from "@radix-ui/react-icons";
+import {
+  GitHubLogoIcon,
+  InstagramLogoIcon,
+  EnvelopeClosedIcon,
+} from "@radix-ui/react-icons";
 import Link from "next/link";
 import {
   EMAIL,
@@ -22,7 +26,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="flex items-center space-x-3 mb-8 md:mb-0"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-[var(--algo-yellow)] to-[var(--algo-yellow)] rounded-xl flex items-center justify-center shadow-lg shadow-[var(--algo-yellow)]/25">
+            <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center shadow-lg shadow-gray-500/25">
               <img src="/logo.png" alt="AlgoSoc Logo" className="w-6 h-6" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-white to-[var(--algo-yellow)] bg-clip-text text-transparent">
