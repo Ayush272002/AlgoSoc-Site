@@ -132,7 +132,7 @@ export default function CareersPage() {
                 className={
                   currentTabPage === 1
                     ? "pointer-events-none opacity-50 text-gray-500 border-gray-700"
-                    : "cursor-pointer hover:bg-algo-yellow/10 text-white border-gray-600 hover:border-algo-yellow/50"
+                    : "cursor-pointer hover:bg-gray-800 hover:text-algo-yellow text-white border-gray-600 hover:border-algo-yellow/50"
                 }
               />
             </PaginationItem>
@@ -156,7 +156,7 @@ export default function CareersPage() {
                     <PaginationLink
                       onClick={() => handlePageChange(tabName, pageNum)}
                       isActive={currentTabPage === pageNum}
-                      className="cursor-pointer hover:bg-algo-yellow/10 text-white border-gray-600 hover:border-algo-yellow/50 data-[state=active]:bg-algo-yellow data-[state=active]:text-black data-[state=active]:border-algo-yellow"
+                      className="cursor-pointer hover:bg-gray-800 hover:text-algo-yellow text-white border-gray-600 hover:border-algo-yellow/50 data-[state=active]:bg-algo-yellow data-[state=active]:text-black data-[state=active]:border-algo-yellow"
                     >
                       {pageNum}
                     </PaginationLink>
@@ -175,7 +175,7 @@ export default function CareersPage() {
                 className={
                   currentTabPage === totalPages
                     ? "pointer-events-none opacity-50 text-gray-500 border-gray-700"
-                    : "cursor-pointer hover:bg-algo-yellow/10 text-white border-gray-600 hover:border-algo-yellow/50"
+                    : "cursor-pointer hover:bg-gray-800 hover:text-algo-yellow text-white border-gray-600 hover:border-algo-yellow/50"
                 }
               />
             </PaginationItem>

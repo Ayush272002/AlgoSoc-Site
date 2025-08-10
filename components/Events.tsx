@@ -8,17 +8,25 @@ import eventsData from "@/utils/events.json";
 import { Event } from "@/interface/Event";
 
 const Events = () => {
-  const validEvents = eventsData.filter(
-    (event: any): event is Event =>
-      event &&
-      typeof event === "object" &&
-      Object.keys(event).length > 0 &&
-      event.title &&
-      event.description &&
-      event.date &&
-      event.type &&
-      event.color
-  );
+  const isValidEvent = (event: unknown): event is Event => {
+    if (!event || typeof event !== "object" || event === null) {
+      return false;
+    }
+
+    const obj = event as Record<string, unknown>;
+    return (
+      Object.keys(obj).length > 0 &&
+      typeof obj.title === "string" &&
+      typeof obj.description === "string" &&
+      typeof obj.date === "string" &&
+      typeof obj.type === "string" &&
+      typeof obj.color === "string" &&
+      obj.title.length > 0 &&
+      obj.description.length > 0
+    );
+  };
+
+  const validEvents = eventsData.filter(isValidEvent);
 
   if (validEvents.length === 0) {
     return null;
