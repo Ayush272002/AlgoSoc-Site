@@ -5,4 +5,4 @@ export const WHATSAPP_LINK = "https://chat.whatsapp.com/KRxafJ8ucv3E8ccn8LgoNL?m
 export const GITHUB_LINK = "https://github.com/AlgoSoc";
 export const LINKEDIN_LINK = "https://www.linkedin.com/company/algosoc-uob/";
 export const EMAIL = "contact@algosoc.uk";
-export const VOTE_LINK = "https://vote.algosoc.uk";
+export const VOTE_LINK = "https://algosoc.uk/agm";

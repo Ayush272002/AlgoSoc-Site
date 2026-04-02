@@ -15,13 +15,13 @@ const Header = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
       className="border-b border-[var(--algo-yellow)]/20 bg-black/80 backdrop-blur-xl sticky top-0 z-50 cursor-pointer"
-      onClick={() => router.push("/")}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <motion.div
           className="flex items-center space-x-3"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          onClick={() => router.push("/")}
         >
           <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center shadow-lg shadow-gray-500/25">
             <img src="/logo.png" alt="AlgoSoc Logo" className="w-6 h-6" />
