@@ -12,6 +12,9 @@ import {
   Mail,
   Vote,
   ChevronRight,
+  FileText,
+  LogIn,
+  Flag,
 } from "lucide-react";
 import { NeuralNetworkBackground } from "@/components/NeuralNetworkBackground";
 import Header from "@/components/Header";
@@ -174,7 +177,7 @@ export default function AGMPage() {
                 step: "01",
                 title: "Nominate",
                 description:
-                  "Email your student ID and manifesto from your student account to algosoc@guild.bham.ac.uk. Tell us why you're the right fit and any relevant experience.",
+                  "Email your student ID and manifesto from your student account to " + EMAIL + ". Tell us why you're the right fit and any relevant experience.",
               },
               {
                 step: "02",
@@ -186,7 +189,7 @@ export default function AGMPage() {
                 step: "03",
                 title: "Vote",
                 description:
-                  "When voting goes live, head to vote.algosoc.uk to cast your vote and help decide the future of the society.",
+                  "When voting goes live, click the \"Vote Now\" button at the top of the page to cast your vote and help decide the future of the society.",
               },
             ].map((item) => (
               <motion.div
@@ -272,6 +275,99 @@ export default function AGMPage() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* Timeline Section */}
+      <section className="py-20 px-4 relative">
+        <div className="container mx-auto relative z-20">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Key <span className="text-[var(--algo-yellow)]">Dates</span>
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Mark your calendar — don&apos;t miss these important AGM deadlines.
+            </p>
+          </motion.div>
+
+          <div className="max-w-2xl mx-auto relative">
+            {/* Vertical line */}
+            <div className="absolute left-8 top-0 bottom-0 w-px bg-[var(--algo-yellow)]/20 hidden sm:block" />
+
+            <motion.div
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              {[
+                {
+                  icon: FileText,
+                  date: "10 May",
+                  time: "10:00 PM",
+                  title: "Nominations Close",
+                  description:
+                    "The nomination period ends. Make sure you have sent your student ID and manifesto to " + EMAIL + " before this deadline.",
+                  gradient: "from-orange-500 to-red-600",
+                },
+                {
+                  icon: LogIn,
+                  date: "14 May",
+                  time: "8:00 AM",
+                  title: "Voting Opens",
+                  description:
+                    'The AGM voting period begins. Come back to this page and click "Vote Now" to cast your vote. You must have an active AlgoSoc membership to vote.',
+                  gradient: "from-[var(--algo-yellow)] to-orange-400",
+                },
+                {
+                  icon: Flag,
+                  date: "17 May",
+                  time: "8:00 PM",
+                  title: "Voting Closes",
+                  description:
+                    "The voting period ends. All votes must be submitted before this time — results will be announced shortly after.",
+                  gradient: "from-green-500 to-emerald-600",
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  className="flex gap-6 items-start"
+                >
+                  <div className="relative flex-shrink-0">
+                    <div
+                      className={`w-16 h-16 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center shadow-lg z-10 relative`}
+                    >
+                      <item.icon className="w-7 h-7 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1 pb-2">
+                    <div className="flex flex-wrap items-center gap-3 mb-2">
+                      <span className="text-[var(--algo-yellow)] font-bold text-lg">
+                        {item.date}
+                      </span>
+                      <span className="text-gray-500 text-sm border border-gray-700 rounded-full px-3 py-0.5">
+                        {item.time}
+                      </span>
+                    </div>
+                    <h3 className="text-white font-bold text-xl mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
