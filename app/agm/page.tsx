@@ -106,7 +106,7 @@ export default function AGMPage() {
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-              Our first online AGM — your chance to vote for next year&apos;s
+              Our online AGM your chance to vote for next year&apos;s
               committee and nominate yourself for a role in shaping the
               society&apos;s direction.
             </p>
