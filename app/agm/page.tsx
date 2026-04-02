@@ -109,21 +109,22 @@ export default function AGMPage() {
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-              Our online AGM your chance to vote for next year&apos;s
-              committee and nominate yourself for a role in shaping the
-              society&apos;s direction.
+              {VOTE_LINK
+                ? "Our online AGM — your chance to vote for next year\u2019s committee and nominate yourself for a role in shaping the society\u2019s direction."
+                : "Voting isn\u2019t open yet \u2014 check back on 14 May at 8\u202fam when the voting period begins. In the meantime, nominate yourself for a role below."}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: VOTE_LINK ? 1.05 : 1 }}
+                whileTap={{ scale: VOTE_LINK ? 0.95 : 1 }}
               >
                 <Button
-                  className="bg-gradient-to-r from-[var(--algo-yellow)] to-[var(--algo-yellow)] text-black hover:from-[var(--algo-yellow)]/80 hover:to-[var(--algo-yellow)]/80 font-semibold px-8 py-3 rounded-xl shadow-lg shadow-[var(--algo-yellow)]/25 text-base cursor-pointer"
-                  onClick={() => window.open(VOTE_LINK, "_blank")}
+                  disabled={!VOTE_LINK}
+                  className="bg-gradient-to-r from-[var(--algo-yellow)] to-[var(--algo-yellow)] text-black hover:from-[var(--algo-yellow)]/80 hover:to-[var(--algo-yellow)]/80 font-semibold px-8 py-3 rounded-xl shadow-lg shadow-[var(--algo-yellow)]/25 text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  onClick={() => VOTE_LINK && window.open(VOTE_LINK, "_blank")}
                 >
-                  Vote Now
+                  {VOTE_LINK ? "Vote Now" : "Voting Opens Soon"}
                   <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
               </motion.div>
@@ -413,16 +414,17 @@ export default function AGMPage() {
                   </Button>
                 </motion.div>
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: VOTE_LINK ? 1.05 : 1 }}
+                  whileTap={{ scale: VOTE_LINK ? 0.95 : 1 }}
                 >
                   <Button
                     variant="outline"
-                    className="border-[var(--algo-yellow)]/40 text-white hover:bg-[var(--algo-yellow)]/10 hover:border-[var(--algo-yellow)] hover:text-algo-yellow font-semibold px-8 py-3 rounded-xl text-base cursor-pointer bg-transparent"
-                    onClick={() => window.open(VOTE_LINK, "_blank")}
+                    disabled={!VOTE_LINK}
+                    className="border-[var(--algo-yellow)]/40 text-white hover:bg-[var(--algo-yellow)]/10 hover:border-[var(--algo-yellow)] hover:text-algo-yellow font-semibold px-8 py-3 rounded-xl text-base cursor-pointer bg-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => VOTE_LINK && window.open(VOTE_LINK, "_blank")}
                   >
                     <Vote className="w-4 h-4 mr-2" />
-                    Go to Voting Portal
+                    {VOTE_LINK ? "Go to Voting Portal" : "Voting Opens Soon"}
                   </Button>
                 </motion.div>
               </div>
